@@ -1,25 +1,46 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const diceBtn = document.getElementById("dice-btn");
-    const adviceNumber = document.querySelector("h5");
-    const adviceText = document.querySelector("h2");
+const diceBtn = document.getElementById('.dice-btn');
+const adviceNumber = document.querySelector('h5');
+const adviceText = document.querySelector('h2');
 
-    diceBtn.addEventListener("click", () => {
-        // Add active class for animation
-        diceBtn.classList.add("active");
-        setTimeout(() => diceBtn.classList.remove("active"), 200);
 
-        // Example: Random advice (you can replace with API call later)
-        const advices = [
-            "Stay hungry, stay foolish.",
-            "The best way out is always through.",
-            "Dream big, start small, act now.",
-            "Action is the foundational key to success.",
-            "Your limitation—it’s only your imagination."
-        ];
 
-        const randomIndex = Math.floor(Math.random() * advices.length);
+const functionadvice = () => {
+    fetch('http://api.adviceslip.com/advice')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        adviceNumber.textcontent = data.slip.advice;
+        diceBtn.textcontent = data.slip.id;
+    })
+.catch(error => {
+    console.error(error);
+    adviceNumber.textcontent = "Error fetching advice.";
+    console.error("Error:", error)
+    })
+}
 
-        adviceNumber.textContent = `ADVICE # ${Math.floor(Math.random() * 200)}`;
-        adviceText.textContent = advices[randomIndex];
-    });
-});
+
+async function getRandomAdvice() {
+  try {
+    const response = await fetch('https://api.adviceslip.com/advice'); 
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    adviceNumber.textContent = data.slip.advice;
+
+    diceBtn.textContent = data.slip.id;
+
+    console.log("RandomAdvice:", data.slip.advice);
+  } catch (error) {
+    console.error("Error fetching advice:", error);
+    adviceNumber.textContent = "Error fetching advice.";
+    adviceText.textContent = "";
+  }
+};
+
+// attach the function to the button
+diceBtn.addEventListener("click", getRandomAdvice);

@@ -66,13 +66,23 @@ h2{
     text-align: center;
     font-style: oblique;
 }
-
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .dice-img {
     background-color: var(--Green-300);
     padding: 10px;
-    border-radius: 50%;
+    border-radius: 70%;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    margin-top: -23px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: -50%;
 }
 
 /* Hover effect */
@@ -86,13 +96,6 @@ h2{
     transform: scale(0.9);
     box-shadow: 0 0 30px var(--Green-300);
 }
-
-
-/* .dice-img{
-    background-color: var(--Green-300);
-    padding: 10px  10px 5px 10px;
-    border-radius: 50px;
-} */
 
 
 @media (max-width:480px){
